@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>SkateXtreme – Continue in App</title>
+    <style>
+      :root { --fg:#0f172a; --muted:#475569; --bg:#ffffff; --card:#f8fafc; --brand:#0ea5e9; }
+      @media (prefers-color-scheme: dark) {
+        :root { --fg:#e5e7eb; --muted:#9ca3af; --bg:#0b1020; --card:#0f172a; --brand:#38bdf8; }
+      }
+      body{margin:0;background:var(--bg);color:var(--fg);font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial}
+      .wrap{max-width:720px;margin:0 auto;padding:24px}
+      .card{background:var(--card);padding:20px;border-radius:12px;margin-top:16px}
+      a{color:var(--brand)}
+    </style>
+  </head>
+  <body>
+    <div class="wrap">
+      <h1>Opening SkateXtreme…</h1>
+      <div class="card">
+        <p>If you are not redirected automatically, tap this button:</p>
+        <p><a id="open" href="#">Open in app</a></p>
+        <p class="muted">On desktop, you may ignore this page. Use your phone to open the link.</p>
+      </div>
+    </div>
+    <script>
+      (function(){
+        // Forward all query/fragment data to the app scheme
+        var loc = window.location;
+        var q = loc.search || "";
+        var h = loc.hash || "";
+        var target = "skateapp://auth/callback" + (q || "") + (h || "");
+        var link = document.getElementById('open');
+        link.href = target;
+        // Try to open immediately on mobile
+        setTimeout(function(){ window.location.replace(target); }, 100);
+      })();
+    </script>
+  </body>
+  </html>
